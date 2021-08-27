@@ -53,7 +53,7 @@ public abstract class BaseBackServlet extends HttpServlet {
                 count = Integer.parseInt(request.getParameter("page.count"));
             } catch (Exception e) {
             }
-            Page page = new Page(start,count);
+            Page page = new Page(start, count);
 
             /*借助反射，调用对应的方法*/
             String method = (String) request.getAttribute("method");
@@ -80,7 +80,7 @@ public abstract class BaseBackServlet extends HttpServlet {
     }
 
     public InputStream parseUpload(HttpServletRequest request, Map<String, String> params) {
-        InputStream is =null;
+        InputStream is = null;
         try {
             DiskFileItemFactory factory = new DiskFileItemFactory();
             ServletFileUpload upload = new ServletFileUpload(factory);

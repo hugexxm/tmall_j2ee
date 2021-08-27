@@ -25,12 +25,13 @@ public class BackServletFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
-        String contextPath = request.getServletContext().getContextPath();
-        String uri = request.getRequestURI();
+
+        String contextPath = request.getServletContext().getContextPath(); // 获取项目的跟路径
+        String uri = request.getRequestURI(); // 获取根路径到地址结尾
         uri = StringUtils.remove(uri, contextPath);
         if(uri.startsWith("/admin_")){
-            String servletPath = StringUtils.substringBetween(uri, "_", "_") + "Servlet";
-            String method = StringUtils.substringAfterLast(uri, "_");
+            String servletPath = StringUtils.substringBetween(uri, "_", "_") + "Servlet"; // servlet 名
+            String method = StringUtils.substringAfterLast(uri, "_"); // 方法名
             request.setAttribute("method", method);
             req.getRequestDispatcher("/" + servletPath).forward(request, response);
         }
