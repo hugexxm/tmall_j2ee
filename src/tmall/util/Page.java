@@ -21,7 +21,6 @@ public class Page {
 		super();
 		this.start = start;
 
-
 		this.count = count;
 	}
 	
