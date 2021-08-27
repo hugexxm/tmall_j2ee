@@ -20,7 +20,6 @@ public class Page {
 	public Page(int start, int count) {
 		super();
 		this.start = start;
-
 		this.count = count;
 	}
 	
