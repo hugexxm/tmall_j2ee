@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class CategoryServlet  extends BaseBackServlet {
@@ -106,6 +107,12 @@ public class CategoryServlet  extends BaseBackServlet {
 
     @Override
     public String list(HttpServletRequest request, HttpServletResponse response, Page page) {
-        return null;
+        List<Category> cs = categoryDAO.list(page.getStart(), page.getCount());
+        int total = categoryDAO.getTotal();
+        page.setTotal(total);
+
+        request.setAttribute("thecs", cs);
+        request.setAttribute("page", page);
+        return "admin/listCategory.jsp";
     }
 }

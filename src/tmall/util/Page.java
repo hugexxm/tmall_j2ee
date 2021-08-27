@@ -59,7 +59,7 @@ public class Page {
         else
             last = total - total % count;
         
-        last = last<0?0:last;
+        last = last <0 ? 0:last;
         return last;
 	}
 	
