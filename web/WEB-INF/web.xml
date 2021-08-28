@@ -23,4 +23,5 @@
         <servlet-name>CategoryServlet</servlet-name>
         <url-pattern>/categoryServlet</url-pattern>
     </servlet-mapping>
+
 </web-app>
