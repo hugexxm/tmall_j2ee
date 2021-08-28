@@ -5,12 +5,9 @@ import tmall.bean.Property;
 import tmall.bean.PropertyValue;
 import tmall.util.Page;
 
-import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.List;
 
 @WebServlet(name = "PropertyServlet")
@@ -28,6 +25,10 @@ public class PropertyServlet extends BaseBackServlet {
         p.setCategory(c);
         p.setName(name);
         propertyDAO.add(p);
+        System.out.println("诱导我啦" + name);
+        System.out.println("诱导我啦" + name);
+        System.out.println("诱导我啦" + name);
+        System.out.println("诱导我啦" + name);
         return "@admin_property_list?cid=" + cid;
     }
 
@@ -67,10 +68,10 @@ public class PropertyServlet extends BaseBackServlet {
     public String list(HttpServletRequest request, HttpServletResponse response, Page page) {
         int cid = Integer.parseInt(request.getParameter("cid"));
         Category c = categoryDAO.get(cid);
-        List<Property> ps = propertyDAO.list(cid, page.getStart(), page.getCount());
+        List<Property> ps = propertyDAO.list(cid, page.getStart(), page.getCount()); // 传递到前端的数据
         int total = propertyDAO.getTotal();
         page.setTotal(total);
-        page.setParam("&cid=" + c.getId());
+        page.setParam("&cid=" + c.getId());  // 这一句的作用，就是传递 cid 参数。告诉后端，取哪一个 category 。在地址栏上有显示。
 
         request.setAttribute("ps", ps);
         request.setAttribute("c", c);
