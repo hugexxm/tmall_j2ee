@@ -28,8 +28,8 @@ public class CategoryServlet  extends BaseBackServlet {
         c.setName(name);
         categoryDAO.add(c);
 
-        File imageFolder = new File(request.getSession().getServletContext().getRealPath("img/category"));
-        File file = new File(imageFolder, c.getId() + ".jpg");
+        File imageFolder = new File(request.getSession().getServletContext().getRealPath("img/category")); // 图片保存位置
+        File file = new File(imageFolder, c.getId() + ".jpg"); // 图片的唯一名，根据 id 来
 
         // 把上传的图片读取出来，并存储到指定的位置
         try{
@@ -76,15 +76,19 @@ public class CategoryServlet  extends BaseBackServlet {
         String name = params.get("name");
         int id = Integer.parseInt(params.get("id"));
 
+
+        // 更新数据库中的 category
         Category c = new Category();
         c.setId(id);
         c.setName(name);
         categoryDAO.update(c);
 
+        // 更新图片。输入流为 null时，则没有更新操作
         File imageFolder = new File(request.getSession().getServletContext().getRealPath("img/category"));
         File file = new File(imageFolder, c.getId() + ".jpg");
-        file.getParentFile().mkdirs();
+        file.getParentFile().mkdirs(); // 如果父文件夹不存在，就创建，如果存在，就忽视。
 
+        //
         try{
             if(null != is && 0 != is.available()){
                 try(FileOutputStream fos = new FileOutputStream(file)){

@@ -95,6 +95,7 @@ public abstract class BaseBackServlet extends HttpServlet {
                     // item.getInputStream() 获取上传文件的输入流
                     is = item.getInputStream();
                 } else {
+                    // 把参数读出来，放到map里面。供后端使用
                     String paramName = item.getFieldName();
                     String paramValue = item.getString();
                     paramValue = new String(paramValue.getBytes("ISO-8859-1"), "UTF-8");
