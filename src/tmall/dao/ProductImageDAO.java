@@ -65,7 +65,7 @@ public class ProductImageDAO {
 
             String sql = "delete from productimage where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();

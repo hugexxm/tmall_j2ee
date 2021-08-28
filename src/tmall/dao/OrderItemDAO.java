@@ -92,7 +92,7 @@ public class OrderItemDAO {
 
             String sql = "delete from orderitem where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();

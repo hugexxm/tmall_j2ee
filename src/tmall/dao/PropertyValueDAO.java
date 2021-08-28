@@ -79,7 +79,7 @@ public class PropertyValueDAO {
 
             String sql = "delete from propertyvalue where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();

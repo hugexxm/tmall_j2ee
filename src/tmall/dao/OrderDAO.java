@@ -104,7 +104,7 @@ public class OrderDAO {
 
             String sql = "delete from order_ where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();

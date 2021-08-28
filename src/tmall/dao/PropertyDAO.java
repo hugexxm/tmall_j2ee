@@ -75,7 +75,7 @@ public class PropertyDAO {
 
             String sql = "delete from property where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();

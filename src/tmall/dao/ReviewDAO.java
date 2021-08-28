@@ -98,7 +98,7 @@ public class ReviewDAO {
 
             String sql = "delete from review where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();

@@ -75,7 +75,7 @@ public class UserDAO {
 
             String sql = "delete from user where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();
