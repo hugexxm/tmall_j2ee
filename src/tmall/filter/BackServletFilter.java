@@ -24,8 +24,6 @@ public class BackServletFilter implements Filter {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
-//        req.getRequestDispatcher("/categoryServlet").forward(request, response);
-//        return;
         String contextPath = request.getServletContext().getContextPath(); // 获取项目的跟路径
         String uri = request.getRequestURI(); // 获取根路径到地址结尾
         uri = StringUtils.remove(uri, contextPath);

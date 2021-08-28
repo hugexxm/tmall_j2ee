@@ -72,7 +72,7 @@ public class CategoryDAO {
 
             String sql = "delete from category where id = " + id;
 
-            ResultSet rs = s.executeQuery(sql);
+            s.execute(sql);
 
         } catch (SQLException e) {
             e.printStackTrace();
