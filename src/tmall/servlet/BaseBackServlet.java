@@ -77,7 +77,7 @@ public abstract class BaseBackServlet extends HttpServlet {
             e.printStackTrace();
             throw new RuntimeException(e);
         }
-    }
+}
 
     public InputStream parseUpload(HttpServletRequest request, Map<String, String> params) {
         InputStream is = null;

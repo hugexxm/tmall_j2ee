@@ -31,6 +31,7 @@ public class CategoryServlet  extends BaseBackServlet {
         File imageFolder = new File(request.getSession().getServletContext().getRealPath("img/category"));
         File file = new File(imageFolder, c.getId() + ".jpg");
 
+        // 把上传的图片读取出来，并存储到指定的位置
         try{
             if(null != is && 0 != is.available()){
                 try(FileOutputStream fos = new FileOutputStream(file)){
