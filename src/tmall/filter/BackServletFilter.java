@@ -20,26 +20,26 @@ public class BackServletFilter implements Filter {
     }
 
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
-
+        //chain.doFilter(req, resp);
         HttpServletRequest request = (HttpServletRequest) req;
         HttpServletResponse response = (HttpServletResponse) resp;
 
-        req.getRequestDispatcher("/categoryServlet").forward(request, response);
-        return;
+//        req.getRequestDispatcher("/categoryServlet").forward(request, response);
+//        return;
+        String contextPath = request.getServletContext().getContextPath(); // 获取项目的跟路径
+        String uri = request.getRequestURI(); // 获取根路径到地址结尾
+        uri = StringUtils.remove(uri, contextPath);
+        if(uri.startsWith("/admin_")){
+            String servletPath = StringUtils.substringBetween(uri, "_", "_") + "Servlet"; // servlet 名
+            String method = StringUtils.substringAfterLast(uri, "_"); // 方法名
+            request.setAttribute("method", method);
+            req.getRequestDispatcher("/" + servletPath).forward(request, response);
+            return;
+        }
+
+        chain.doFilter(request, response);
 
 
-//        String contextPath = request.getServletContext().getContextPath(); // 获取项目的跟路径
-//        String uri = request.getRequestURI(); // 获取根路径到地址结尾
-//        uri = StringUtils.remove(uri, contextPath);
-//        if(uri.startsWith("/admin_")){
-//            String servletPath = StringUtils.substringBetween(uri, "_", "_") + "Servlet"; // servlet 名
-//            String method = StringUtils.substringAfterLast(uri, "_"); // 方法名
-//            request.setAttribute("method", method);
-//            req.getRequestDispatcher("/" + servletPath).forward(request, response);
-//            return;
-//        }
-//
-//        chain.doFilter(request, response);
     }
 
     public void init(FilterConfig config) throws ServletException {
@@ -47,3 +47,5 @@ public class BackServletFilter implements Filter {
     }
 
 }
+
+
