@@ -37,7 +37,7 @@ public class PropertyServlet extends BaseBackServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Property p = propertyDAO.get(id);
         propertyDAO.delete(id);
-        return "admin_property_list?cid=" + p.getCategory().getId();
+        return "@admin_property_list?cid=" + p.getCategory().getId();
     }
 
     @Override
