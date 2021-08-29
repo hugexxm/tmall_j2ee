@@ -58,7 +58,7 @@ public class PropertyValueDAO {
 
     public void update(PropertyValue bean){
 
-        String sql = "update propertyvalue set pid = ?, ptid = ?, value = ?, where id = ?";
+        String sql = "update propertyvalue set pid = ?, ptid = ?, value = ? where id = ?"; // where前面不能有 逗号，太蠢了
 
         try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);){
 
@@ -117,7 +117,7 @@ public class PropertyValueDAO {
 
         try(Connection c = DBUtil.getConnection(); Statement s = c.createStatement();) {
 
-            String sql = "select * from propertyvalue where ptid = " + ptid + "and pid = " + pid;
+            String sql = "select * from propertyvalue where ptid = " + ptid + " and pid = " + pid;
 
             ResultSet rs = s.executeQuery(sql);
 

@@ -39,12 +39,13 @@ public class ProductImageServlet extends BaseBackServlet {
         int pid = Integer.parseInt(params.get("pid"));
         Product p = productDAO.get(pid);
 
+        // 1、数据库中插入数据
         ProductImage pi = new ProductImage();
         pi.setType(type);
         pi.setProduct(p);
         productImageDAO.add(pi);
 
-        // 生成文件
+        // 2、生成文件。将图片进行保存
         String fileName = pi.getId() + ".jpg";
         String imageFolder;
         String imageFolder_small = null;
@@ -96,10 +97,12 @@ public class ProductImageServlet extends BaseBackServlet {
 
     @Override
     public String delete(HttpServletRequest request, HttpServletResponse response, Page page) {
+        // 删除数据库数据
         int id = Integer.parseInt(request.getParameter("id"));
         ProductImage pi = productImageDAO.get(id);
         productImageDAO.delete(id);
 
+        // 删除图片
         if(ProductImageDAO.type_single.equals(pi.getType())){
             String imageFolder_single = request.getSession().getServletContext().getRealPath("img/productSingle");
             String imageFolder_small = request.getSession().getServletContext().getRealPath("img/productSingle_small");
