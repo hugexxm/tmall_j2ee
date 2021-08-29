@@ -70,7 +70,7 @@ public abstract class BaseBackServlet extends HttpServlet {
             else if(redirect.startsWith("%"))
                 response.getWriter().print(redirect.substring(1));
             else
-                request.getRequestDispatcher(redirect).forward(request, response);
+                request.getRequestDispatcher(redirect).forward(request, response); // 注意这里的服务端跳转
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
