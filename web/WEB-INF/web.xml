@@ -5,6 +5,7 @@
          version="4.0">
 
 
+    <!-- 中文过滤器需要放在第一个，因为这个设置的是所有servlet传递数据的编码格式 -->
     <filter>
         <filter-name>EncodingFilter</filter-name>
         <filter-class>tmall.filter.EncodingFilter</filter-class>
