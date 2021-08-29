@@ -213,18 +213,18 @@ public class OrderItemDAO {
         return beans;
     }
 
-    // 为订单设置订单项集合
+    // 为订单设置订单项集合    拿着数据库看，这样比较好理解一点
     public void fill(List<Order> os){
         for(Order o : os){
-            List<OrderItem> ois = listByOrder(o.getId());
+            List<OrderItem> ois = listByOrder(o.getId()); // order的id 是 orderItem 的外键，说得通很合理啊
             float total = 0;
             int totalNumber = 0;
             for(OrderItem oi : ois){
-                total += oi.getNumber() * oi.getProduct().getPromotePrice();
+                total += oi.getNumber() * oi.getProduct().getPromotePrice(); // 计算总共多少钱
                 totalNumber += oi.getNumber();
             }
             o.setTotal(total);
-            o.setOrderItems(ois);
+            o.setOrderItems(ois); // 把ois给了order。
             o.setTotalNumber(totalNumber);
         }
     }

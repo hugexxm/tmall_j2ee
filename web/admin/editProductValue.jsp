@@ -16,7 +16,7 @@
 
 <script>
     $(function() {
-        $("input.pvValue").keyup(function(){
+        $("input.pvValue").keyup(function(){ // 键盘起来，就会提交数据。并且把框框设置为绿色
             var value = $(this).val();
             var page = "admin_product_updatePropertyValue";
             var pvid = $(this).attr("pvid");

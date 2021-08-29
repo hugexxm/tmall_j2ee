@@ -70,10 +70,10 @@ public class ProductServlet extends BaseBackServlet {
         Product p = productDAO.get(id);
         request.setAttribute("p", p);
 
-        List<Property> pts = propertyDAO.list(p.getCategory().getId());
+        // 初始化属性值对象。对于所有的属性值对象，没有就创建一个。
         propertyValueDAO.init(p);
 
-        List<PropertyValue> pvs = propertyValueDAO.list(p.getId());
+        List<PropertyValue> pvs = propertyValueDAO.list(p.getId()); // 取出所有的属性值对象，给前端edit用
 
         request.setAttribute("pvs", pvs);
 
@@ -81,12 +81,12 @@ public class ProductServlet extends BaseBackServlet {
     }
 
     public String updatePropertyValue(HttpServletRequest request, HttpServletResponse response, Page page){
-        int pvid = Integer.parseInt(request.getParameter("pvid"));
+        int pvid = Integer.parseInt(request.getParameter("pvid")); // propertyValue的主键
         String value = request.getParameter("value");
 
         PropertyValue pv = propertyValueDAO.get(pvid);
         pv.setValue(value);
-        propertyValueDAO.update(pv);
+        propertyValueDAO.update(pv); // 更新属性值。只有主键是必须的，其他字段是要更新的，有就更新
         return "%success";
     }
 

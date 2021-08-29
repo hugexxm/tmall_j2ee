@@ -16,7 +16,7 @@ import java.util.Date;
 import java.util.List;
 
 public class OrderDAO {
-    public static final String waitDay = "waitDay";
+    public static final String waitPay = "waitPay";
     public static final String waitDelivery = "waitDelivery";
     public static final String waitConfirm = "waitConfirm";
     public static final String waitReview = "waitReview";
@@ -129,7 +129,7 @@ public class OrderDAO {
                 String mobile = rs.getString("mobile");
                 String userMessage = rs.getString("userMessage");
                 Date createDate = DateUtil.t2d(rs.getTimestamp("createDate"));
-                Date patDate = DateUtil.t2d(rs.getTimestamp("patDate"));
+                Date payDate = DateUtil.t2d(rs.getTimestamp("payDate"));
                 Date deliveryDate = DateUtil.t2d(rs.getTimestamp("deliveryDate"));
                 Date confirmDate = DateUtil.t2d(rs.getTimestamp("confirmDate"));
                 int uid = rs.getInt("uid");
@@ -142,7 +142,7 @@ public class OrderDAO {
                 bean.setMobile(mobile);
                 bean.setUserMessage(userMessage);
                 bean.setCreateDate(createDate);
-                bean.setPayDate(patDate);
+                bean.setPayDate(payDate);
                 bean.setDeliveryDate(deliveryDate);
                 bean.setConfirmDate(confirmDate);
                 bean.setUser(new UserDAO().get(uid));
@@ -182,7 +182,7 @@ public class OrderDAO {
                 String mobile = rs.getString("mobile");
                 String userMessage = rs.getString("userMessage");
                 Date createDate = DateUtil.t2d(rs.getTimestamp("createDate"));
-                Date patDate = DateUtil.t2d(rs.getTimestamp("patDate"));
+                Date patDate = DateUtil.t2d(rs.getTimestamp("payDate"));
                 Date deliveryDate = DateUtil.t2d(rs.getTimestamp("deliveryDate"));
                 Date confirmDate = DateUtil.t2d(rs.getTimestamp("confirmDate"));
                 int uid = rs.getInt("uid");

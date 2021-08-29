@@ -190,8 +190,9 @@ public class PropertyValueDAO {
     public void init(Product p){
         List<Property> pts = new PropertyDAO().list(p.getCategory().getId());
 
+        // 先去看看，这个产品下面有没有 属性值对象，没有就创建一个。创建好之后，才可以往里面写对应的属性值。
         for(Property pt:pts){
-            PropertyValue pv = get(pt.getId(), p.getId());
+            PropertyValue pv = get(pt.getId(), p.getId()); // 属性值对象
             if(null == pv){
                 pv = new PropertyValue();
                 pv.setProduct(p);
