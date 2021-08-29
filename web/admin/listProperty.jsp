@@ -51,7 +51,7 @@
                     <td>${p.id}</td>
                     <td>${p.name}</td>
                     <td><a href="admin_property_edit?id=${p.id}"><span class="glyphicon glyphicon-edit"></span></a></td>
-                    <td><a deleteLink="true" href="admin_property_delete?id=${p.id}"><span class="glyphicon glyphicon-trash"></span></a></td>
+                    <td><a href="admin_property_delete?id=${p.id}" deleteLink="true" ><span class="glyphicon glyphicon-trash"></span></a></td>
 
                 </tr>
             </c:forEach>

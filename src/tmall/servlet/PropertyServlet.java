@@ -21,10 +21,12 @@ public class PropertyServlet extends BaseBackServlet {
         Category c = categoryDAO.get(cid);
 
         String name = request.getParameter("name");
+
         Property p = new Property();
         p.setCategory(c);
         p.setName(name);
         propertyDAO.add(p);
+
         return "@admin_property_list?cid=" + cid;
     }
 
@@ -47,17 +49,20 @@ public class PropertyServlet extends BaseBackServlet {
 
     @Override
     public String update(HttpServletRequest request, HttpServletResponse response, Page page) {
+
         int cid = Integer.parseInt(request.getParameter("cid"));
         Category c = categoryDAO.get(cid);
 
         int id = Integer.parseInt(request.getParameter("id"));
         String name = request.getParameter("name");
+
         Property p = new Property();
         p.setCategory(c);
         p.setName(name);
         p.setId(id);
         propertyDAO.update(p);
-        return "admin_property_list?cid=" + p.getCategory().getId();
+
+        return "@admin_property_list?cid=" + p.getCategory().getId();
     }
 
     @Override
@@ -67,7 +72,7 @@ public class PropertyServlet extends BaseBackServlet {
         List<Property> ps = propertyDAO.list(cid, page.getStart(), page.getCount()); // 传递到前端的数据
         int total = propertyDAO.getTotal();
         page.setTotal(total);
-        page.setParam("&cid=" + c.getId());  // 这一句的作用，就是传递 cid 参数。告诉后端，取哪一个 category 。在地址栏上有显示。
+        page.setParam("&cid=" + c.getId());  // 传递 cid 参数。在地址栏上有显示。 为什么放在page里，不直接搞一个 cid 的参数呢？因为page里面，所有的jsp就都可以用了啊
 
         request.setAttribute("ps", ps);
         request.setAttribute("c", c);
