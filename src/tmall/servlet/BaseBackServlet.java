@@ -65,12 +65,12 @@ public abstract class BaseBackServlet extends HttpServlet {
 
             /*根据方法的返回值，进行相应的客户端跳转，服务端跳转，或者仅仅是输出字符串*/
 
-            if(redirect.startsWith("@"))
+            if(redirect.startsWith("@")) // 客户端跳转
                 response.sendRedirect(redirect.substring(1));
             else if(redirect.startsWith("%"))
                 response.getWriter().print(redirect.substring(1));
-            else
-                request.getRequestDispatcher(redirect).forward(request, response); // 注意这里的服务端跳转
+            else // 服务端跳转
+                request.getRequestDispatcher(redirect).forward(request, response); // 注意这里的服务端跳转。服务端跳转只有一次request，且一直往下传下去，不会回头。2021.8.29 关于 @ 的错误使用
 
         } catch (Exception e) {
             // TODO Auto-generated catch block

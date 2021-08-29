@@ -25,10 +25,6 @@ public class PropertyServlet extends BaseBackServlet {
         p.setCategory(c);
         p.setName(name);
         propertyDAO.add(p);
-        System.out.println("诱导我啦" + name);
-        System.out.println("诱导我啦" + name);
-        System.out.println("诱导我啦" + name);
-        System.out.println("诱导我啦" + name);
         return "@admin_property_list?cid=" + cid;
     }
 
