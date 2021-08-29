@@ -69,8 +69,8 @@ public abstract class BaseBackServlet extends HttpServlet {
                 response.sendRedirect(redirect.substring(1));
             else if(redirect.startsWith("%"))
                 response.getWriter().print(redirect.substring(1));
-            else // 服务端跳转
-                request.getRequestDispatcher(redirect).forward(request, response); // 注意这里的服务端跳转。服务端跳转只有一次request，且一直往下传下去，不会回头。2021.8.29 关于 @ 的错误使用
+            else // 服务端跳转，服务端跳转也会被filter拦截。只不过因为不是 admin_ 开头，所以进不去servlet的方法中。这个设设计实在是妙啊！之前有个地方注释写错了，理解错了
+                request.getRequestDispatcher(redirect).forward(request, response); // 注意这里的服务端跳转。2021.8.29 关于 @ 的错误使用
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
