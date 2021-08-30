@@ -37,8 +37,8 @@ $(function(){
 					<th>分类名称</th>
 					<th>属性管理</th>
 					<th>产品管理</th>
-					<th>编辑</th>
-					<th>删除</th>
+					<th>分类编辑</th>
+					<th>分类删除</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,7 +46,7 @@ $(function(){
 				
 				<tr>
 					<td>${c.id}</td>
-					<td><img height="40px" src="img/category/${c.id}.jpg"></td> <!--  前端自己去拿图片数据，后端给了个 id， 根据这个id去拿数据 -->
+					<td><img height="40px" src="img/category/${c.id}.jpg"></td> <!--  前端自己去拿图片数据，后端给了个 id， 根据这个id拼图片文件名去拿数据 -->
 					<td>${c.name}</td>
 					 	
 					<td><a href="admin_property_list?cid=${c.id}"><span class="glyphicon glyphicon-th-list"></span></a></td>					

@@ -17,10 +17,17 @@ import java.util.List;
 import java.util.Map;
 
 public class CategoryServlet  extends BaseBackServlet {
+    /**
+     *
+     * 做了两件事。
+     * 1、写数据库。
+     * 2、保存图片。
+     */
     @Override
-    public String add(HttpServletRequest request, HttpServletResponse response, Page page) {
+    public String add(HttpServletRequest request, HttpServletResponse response, Page page) { //
 
         Map<String, String> params = new HashMap<>();
+        // 获取文件数据（file）和文本数据（text）
         InputStream is = super.parseUpload(request, params);
 
         String name = params.get("name");
@@ -28,6 +35,7 @@ public class CategoryServlet  extends BaseBackServlet {
         c.setName(name);
         categoryDAO.add(c);
 
+        // 创建文件，用来保存图片。文件名称以 category 的 id 唯一命名
         File imageFolder = new File(request.getSession().getServletContext().getRealPath("img/category")); // 图片保存位置
         File file = new File(imageFolder, c.getId() + ".jpg"); // 图片的唯一名，根据 id 来
 
@@ -91,7 +99,7 @@ public class CategoryServlet  extends BaseBackServlet {
         //
         try{
             if(null != is && 0 != is.available()){
-                try(FileOutputStream fos = new FileOutputStream(file)){
+                try(FileOutputStream fos = new FileOutputStream(file)){ // FileOutputStream(file)一旦文件被打开，意味着被重写。FileOutputStream(file, true) 这个new出来的就是可以在文件后面进行追加，而不是重写
                     byte b[] = new byte[1024 * 1024];
                     int length = 0;
                     while(-1 != (length = is.read(b))){
