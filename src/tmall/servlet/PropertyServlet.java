@@ -35,7 +35,7 @@ public class PropertyServlet extends BaseBackServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         Property p = propertyDAO.get(id);
         propertyDAO.delete(id);
-        return "@admin_property_list?cid=" + p.getCategory().getId();
+        return "@admin_property_list?cid=" + p.getCategory().getId(); // 传递一个 cid ，  list 需要用到类别
     }
 
     @Override
@@ -62,7 +62,7 @@ public class PropertyServlet extends BaseBackServlet {
         p.setId(id);
         propertyDAO.update(p);
 
-        return "@admin_property_list?cid=" + p.getCategory().getId();
+        return "@admin_property_list?cid=" + p.getCategory().getId();// 传递一个 cid ，  list 需要用到类别
     }
 
     @Override
@@ -75,7 +75,7 @@ public class PropertyServlet extends BaseBackServlet {
         page.setParam("&cid=" + c.getId());  // 传递 cid 参数。在地址栏上有显示。 为什么放在page里，不直接搞一个 cid 的参数呢？因为page里面，所有的jsp就都可以用了啊
 
         request.setAttribute("ps", ps);
-        request.setAttribute("c", c);
+        request.setAttribute("c", c); // 新增属性会用到。
         request.setAttribute("page", page);
 
         return "admin/listProperty.jsp";

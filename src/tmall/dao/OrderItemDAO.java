@@ -231,7 +231,7 @@ public class OrderItemDAO {
 
     // 为订单设置订单项集合
     public void fill(Order o){
-        List<OrderItem> ois = listByOrder(o.getId());
+        List<OrderItem> ois = listByOrder(o.getId()); // 把属于订单 o 的订单项全部取出来，给我计算。外键啊作用啊
         float total = 0;
         for(OrderItem oi : ois){
             total += oi.getNumber() * oi.getProduct().getPromotePrice();

@@ -138,8 +138,8 @@ public class ProductImageServlet extends BaseBackServlet {
 
         int pid = Integer.parseInt(request.getParameter("pid"));
         Product p = productDAO.get(pid);
-        List<ProductImage> pisSingle = productImageDAO.list(p, ProductImageDAO.type_single);
-        List<ProductImage> pisDetail = productImageDAO.list(p, ProductImageDAO.type_detail);
+        List<ProductImage> pisSingle = productImageDAO.list(p, ProductImageDAO.type_single); // 两种图片要分开，因为是不同的集合
+        List<ProductImage> pisDetail = productImageDAO.list(p, ProductImageDAO.type_detail); // 两种图片要分开，因为是不同的集合
 
         request.setAttribute("p", p);
         request.setAttribute("pisSingle", pisSingle);

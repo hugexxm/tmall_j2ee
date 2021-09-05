@@ -60,7 +60,7 @@
                     <td><fmt:formatDate value="${o.confirmDate}" pattern="yyyy-MM-dd HH:mm:ss"/></td>
 
                     <td>
-                        <button oid=${o.id} class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button>
+                        <button oid="${o.id}" class="orderPageCheckOrderItems btn btn-primary btn-xs">查看详情</button>
 
                         <c:if test="${o.status=='waitDelivery'}">  <!-- 根据status的值，来决定按钮是否可见 -->
                             <a href="admin_order_delivery?id=${o.id}">
@@ -74,7 +74,7 @@
 
                         <div  class="orderPageOrderItem">
                             <table width="800px" align="center" class="orderPageOrderItemTable">
-                                <c:forEach items="${o.orderItems}" var="oi">
+                                <c:forEach items="${o.orderItems}" var="oi">  <!-- 这个如果看不懂的话，可以看看orderDAO里面的 setOrderItems ,已经把订单项set给了订单了 -->
                                     <tr>
                                         <td align="left">
                                             <img width="40px" height="40px" src="img/productSingle/${oi.product.firstProductImage.id}.jpg">

@@ -84,7 +84,7 @@ public class ProductServlet extends BaseBackServlet {
         int pvid = Integer.parseInt(request.getParameter("pvid")); // propertyValue的主键
         String value = request.getParameter("value");
 
-        PropertyValue pv = propertyValueDAO.get(pvid);
+        PropertyValue pv = propertyValueDAO.get(pvid); // 先把对象从数据库里拿出，然后调用update更新value
         pv.setValue(value);
         propertyValueDAO.update(pv); // 更新属性值。只有主键是必须的，其他字段是要更新的，有就更新
         return "%success";
@@ -126,7 +126,7 @@ public class ProductServlet extends BaseBackServlet {
 
         int total = productDAO.getTotal(cid);
         page.setTotal(total);
-        page.setParam("&cid=" + c.getId());
+        page.setParam("&cid=" + c.getId());// 分页的需要用到
 
         request.setAttribute("ps", ps);
         request.setAttribute("c", c);

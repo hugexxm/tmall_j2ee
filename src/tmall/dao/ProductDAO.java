@@ -39,13 +39,13 @@ public class ProductDAO {
         String sql = "insert into Product values(null,?,?,?,?,?,?,?)";
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 
-            ps.setString(1, bean.getName());
-            ps.setString(2, bean.getSubTitle());
-            ps.setFloat(3, bean.getOrignalPrice());
-            ps.setFloat(4, bean.getPromotePrice());
-            ps.setInt(5, bean.getStock());
-            ps.setInt(6, bean.getCategory().getId());
-            ps.setTimestamp(7, DateUtil.d2t(bean.getCreateDate()));
+            ps.setString    (1, bean.getName());
+            ps.setString    (2, bean.getSubTitle());
+            ps.setFloat     (3, bean.getOrignalPrice());
+            ps.setFloat     (4, bean.getPromotePrice());
+            ps.setInt       (5, bean.getStock());
+            ps.setInt       (6, bean.getCategory().getId());
+            ps.setTimestamp (7, DateUtil.d2t(bean.getCreateDate()));
             ps.execute();
 
             ResultSet rs = ps.getGeneratedKeys();
@@ -235,10 +235,10 @@ public class ProductDAO {
         for (Category c : cs) {
             List<Product> products =  c.getProducts();
             List<List<Product>> productsByRow =  new ArrayList<>();
-            for (int i = 0; i < products.size(); i+=productNumberEachRow) {
-                int size = i+productNumberEachRow;
-                size= size>products.size()?products.size():size;
-                List<Product> productsOfEachRow =products.subList(i, size);
+            for (int i = 0; i < products.size(); i += productNumberEachRow) {
+                int size = i + productNumberEachRow;
+                size = size > products.size() ? products.size() : size;
+                List<Product> productsOfEachRow = products.subList(i, size); // 把所有的产品重新换行摆放，8个一换行
                 productsByRow.add(productsOfEachRow);
             }
             c.setProductsByRow(productsByRow);

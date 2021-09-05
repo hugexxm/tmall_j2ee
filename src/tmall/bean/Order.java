@@ -25,7 +25,7 @@ public class Order {
     private float total; // 订单总金额
     private int totalNumber; // 商品总数量
 
-    public String getStatusDesc(){
+    public String getStatusDesc(){ // 前端页面会用到，判断是否需要发货
         // 数据库中的Status是英文，需要用中文显示出来
         String desc = "未知";
         switch (status){
