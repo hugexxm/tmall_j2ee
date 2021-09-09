@@ -28,7 +28,7 @@
                         <a href="foreproduct?pid=${p.id}">
                             <c:forEach items="${fn:split(p.subTitle, ' ')}" var="title" varStatus="st">
                                 <c:if test="${st.index==0}">
-                                    ${title}
+                                    ${title} <!-- 显示第一个title -->
                                 </c:if>
                             </c:forEach>
                         </a>

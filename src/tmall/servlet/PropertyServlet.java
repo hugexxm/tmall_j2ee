@@ -3,6 +3,7 @@ package tmall.servlet;
 import tmall.bean.Category;
 import tmall.bean.Property;
 import tmall.bean.PropertyValue;
+import tmall.service.Delete;
 import tmall.util.Page;
 
 import javax.servlet.annotation.WebServlet;
@@ -34,7 +35,8 @@ public class PropertyServlet extends BaseBackServlet {
     public String delete(HttpServletRequest request, HttpServletResponse response, Page page) {
         int id = Integer.parseInt(request.getParameter("id"));
         Property p = propertyDAO.get(id);
-        propertyDAO.delete(id);
+//        propertyDAO.delete(id);
+        new Delete().deleteProperty(id); // 解决外键无法删除的问题
         return "@admin_property_list?cid=" + p.getCategory().getId(); // 传递一个 cid ，  list 需要用到类别
     }
 

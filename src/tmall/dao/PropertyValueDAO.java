@@ -202,6 +202,34 @@ public class PropertyValueDAO {
         }
     }
 
+    public List<PropertyValue> list(Property property){
+        List<PropertyValue> beans = new ArrayList<>();
+        int ptid = property.getId();
+
+        String sql = "select * from propertyvalue where ptid = ? order by id desc";
+
+        try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
+            ps.setInt(1, ptid);
+            ResultSet rs = ps.executeQuery();
+            while(rs.next()){
+                PropertyValue bean = new PropertyValue();
+                int id = rs.getInt(1);
+                int pid = rs.getInt("pid");
+                String value = rs.getString("value");
+
+                bean.setId(id);
+                bean.setProduct(new ProductDAO().get(pid));
+                bean.setProperty(new PropertyDAO().get(ptid));
+                bean.setValue(value);
+
+                beans.add(bean);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return beans;
+    }
+
     public List<PropertyValue> list(int pid){
         List<PropertyValue> beans = new ArrayList<PropertyValue>();
 

@@ -4,6 +4,7 @@ import tmall.bean.Category;
 import tmall.bean.Product;
 import tmall.bean.Property;
 import tmall.bean.PropertyValue;
+import tmall.service.Delete;
 import tmall.util.Page;
 
 import javax.servlet.ServletException;
@@ -49,7 +50,8 @@ public class ProductServlet extends BaseBackServlet {
 
         int id = Integer.parseInt(request.getParameter("id"));
         Product p = productDAO.get(id);
-        productDAO.delete(id);
+        new Delete().deleteProduct(id); // 解决外键存在无法删除的问题。
+//        productDAO.delete(id);
 
         return "@admin_product_list?cid=" + p.getCategory().getId();
     }

@@ -1,6 +1,9 @@
 package tmall.servlet;
 
-import tmall.bean.Category;
+import tmall.bean.*;
+import tmall.dao.OrderItemDAO;
+import tmall.dao.ProductImageDAO;
+import tmall.service.Delete;
 import tmall.util.ImageUtil;
 import tmall.util.Page;
 
@@ -63,8 +66,68 @@ public class CategoryServlet  extends BaseBackServlet {
     @Override
     public String delete(HttpServletRequest request, HttpServletResponse response, Page page) {
         int id = Integer.parseInt(request.getParameter("id"));
-        categoryDAO.delete(id);
+        //categoryDAO.delete(id);
+        //this.delete(id); // 解决categoryDAO中无法删除的问题。删除需要考虑外键。
+        new Delete().deleteCategory(id); // 解决categoryDAO中无法删除的问题。删除需要考虑外键。
         return "@admin_category_list";
+    }
+
+    /**
+     * 下面的代码为试验代码。最终代码见 service.delete
+     * @param cid
+     */
+    public void delete(int cid){
+        List<Product> ps = productDAO.list(cid);
+        List<Property> pts = propertyDAO.list(cid);
+
+        if(null != ps){
+            for(Product p : ps){
+                // 删除 propertyValue
+                List<PropertyValue> ptvs = propertyValueDAO.list(p.getId());
+                if(null != ptvs){
+                    for(PropertyValue ptv : ptvs)
+                        propertyValueDAO.delete(ptv.getId());
+                }
+
+                // 删除review
+                List<Review> reviews = reviewDAO.list(p.getId());
+                if(null != reviews){
+                    for(Review review : reviews)
+                        reviewDAO.delete(review.getId());
+                }
+
+                // 删除productImage
+                List<ProductImage> productImages1 = productImageDAO.list(p, ProductImageDAO.type_single);
+                List<ProductImage> productImages2 = productImageDAO.list(p, ProductImageDAO.type_detail);
+                if(productImages1 != null){
+                    for(ProductImage img : productImages1)
+                        productImageDAO.delete(img.getId());
+                }
+                if(productImages2 != null){
+                    for(ProductImage img : productImages2)
+                        productImageDAO.delete(img.getId());
+                }
+
+                // 删除orderItem
+                List<OrderItem> ois = orderItemDAO.listByProduct(p.getId());
+                if(ois != null){
+                    for(OrderItem oi : ois)
+                        orderItemDAO.delete(oi.getId());
+                }
+
+                // 删除product
+                productDAO.delete(p.getId());
+            }
+        }
+
+        // 删除 property
+        if(null != pts){
+            for(Property pt : pts){
+                propertyDAO.delete(pt.getId());
+            }
+        }
+
+        categoryDAO.delete(cid);
     }
 
     @Override

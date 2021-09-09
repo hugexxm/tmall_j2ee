@@ -232,7 +232,7 @@ public class ProductDAO {
 
     public void fillByRow(List<Category> cs) {
         int productNumberEachRow = 8;
-        for (Category c : cs) {
+        for (Category c : cs) { // 每个分类下的产品重新排列，8个一行，排成一行一行的
             List<Product> products =  c.getProducts();
             List<List<Product>> productsByRow =  new ArrayList<>();
             for (int i = 0; i < products.size(); i += productNumberEachRow) {
@@ -274,7 +274,7 @@ public class ProductDAO {
         String sql = "select * from Product where name like ? limit ?,? ";
 
         try (Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
-            ps.setString(1, "%"+keyword.trim()+"%");
+            ps.setString(1, "%"+keyword.trim()+"%"); // %likeString%
             ps.setInt(2, start);
             ps.setInt(3, count);
 

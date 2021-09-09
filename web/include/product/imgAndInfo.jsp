@@ -58,7 +58,6 @@
                                     $(".addCartButton").css("background-color","lightgray")
                                     $(".addCartButton").css("border-color","lightgray")
                                     $(".addCartButton").css("color","black")
-
                                 }
                                 else{
 
@@ -80,7 +79,7 @@
                 function(result){
                     if("success"==result){
                         var num = $(".productNumberSetting").val();
-                        location.href= $(".buyLink").attr("href")+"&num="+num;
+                        location.href= $(".buyLink").attr("href")+"&num="+num; // 在后面加上购买的数量，一起传给后端
                     }
                     else{
                         $("#loginModal").modal('show');
@@ -106,7 +105,7 @@
                 {"name":name,"password":password},
                 function(result){
                     if("success"==result){
-                        location.reload();
+                        location.reload(); // 登陆成功，重新加载页面。此时已有用户信息。
                     }
                     else{
                         $("span.errorMessage").html("账号密码错误");
@@ -121,7 +120,7 @@
         $("img.smallImage").mouseenter(function(){
             var bigImageURL = $(this).attr("bigImageURL");
             $("img.bigImg").attr("src",bigImageURL);
-        });
+        }); // 鼠标进入的时候，就把大图的链接换成鼠标点的那个图片
 
         $("img.bigImg").load(
             function(){
@@ -146,7 +145,7 @@
     <div class="imgInimgAndInfo">
         <img src="img/productSingle/${p.firstProductImage.id}.jpg" class="bigImg">
         <div class="smallImageDiv">
-            <c:forEach items="${p.productSingleImages}" var="pi">
+            <c:forEach items="${p.productSingleImages}" var="pi"> <!-- 这里的图片的位置，和后台存放有关系。这里只提供图片的id -->
                 <img src="img/productSingle_small/${pi.id}.jpg" bigImageURL="img/productSingle/${pi.id}.jpg" class="smallImage">
             </c:forEach>
         </div>
@@ -228,7 +227,7 @@
             </span>
         </div>
 
-        <div class="buyDiv">
+        <div class="buyDiv"> <!-- 异步提交，Ajax -->
             <a class="buyLink" href="forebuyone?pid=${p.id}"><button class="buyButton">立即购买</button></a>
             <a href="#nowhere" class="addCartLink"><button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button></a>
         </div>
