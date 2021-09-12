@@ -30,7 +30,7 @@ public class User {
         this.id = id;
     }
 
-    public String getAnnoymousName(){
+    public String getAnonymousName(){
         if(null == name)
             return null;
 

@@ -239,7 +239,7 @@ public class OrderDAO {
                 String mobile = rs.getString("mobile");
                 String userMessage = rs.getString("userMessage");
                 Date createDate = DateUtil.t2d(rs.getTimestamp("createDate"));
-                Date patDate = DateUtil.t2d(rs.getTimestamp("patDate"));
+                Date patDate = DateUtil.t2d(rs.getTimestamp("payDate"));
                 Date deliveryDate = DateUtil.t2d(rs.getTimestamp("deliveryDate"));
                 Date confirmDate = DateUtil.t2d(rs.getTimestamp("confirmDate"));
                 uid = rs.getInt("uid");

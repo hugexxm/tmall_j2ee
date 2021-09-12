@@ -157,7 +157,7 @@ public class ReviewDAO {
     public List<Review> list(int pid, int start, int count){
         List<Review> beans = new ArrayList<Review>();
 
-        String sql = "select * from review where = pid = ? order by id desc limit ?, ?";
+        String sql = "select * from review where pid = ? order by id desc limit ?, ?";
 
         try(Connection c = DBUtil.getConnection(); PreparedStatement ps = c.prepareStatement(sql);) {
 

@@ -136,6 +136,4 @@ public class ProductServlet extends BaseBackServlet {
 
         return "admin/listProduct.jsp";
     }
-
-
 }
