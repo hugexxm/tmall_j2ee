@@ -53,11 +53,13 @@
                             {"pid":pid,"num":num},
                             function(result){
                                 if("success"==result){
-                                    $(".addCartButton").html("已加入购物车");
-                                    $(".addCartButton").attr("disabled","disabled");
-                                    $(".addCartButton").css("background-color","lightgray")
-                                    $(".addCartButton").css("border-color","lightgray")
-                                    $(".addCartButton").css("color","black")
+                                    location.reload();
+                                    // $(".addCartButton").html("已加入购物车");
+                                    // $(".addCartButton").attr("disabled","disabled");
+                                    // $(".addCartButton").css("background-color","lightgray");
+                                    // $(".addCartButton").css("border-color","lightgray");
+                                    // $(".addCartButton").css("color","black");
+
                                 }
                                 else{
 
@@ -227,8 +229,10 @@
             </span>
         </div>
 
-        <div class="buyDiv"> <!-- 异步提交，Ajax -->
+        <div class="buyDiv">
+            <!-- 点击后,会在链接后面加上 num 参数 -->
             <a class="buyLink" href="forebuyone?pid=${p.id}"><button class="buyButton">立即购买</button></a>
+            <!-- 异步提交，Ajax -->
             <a href="#nowhere" class="addCartLink"><button class="addCartButton"><span class="glyphicon glyphicon-shopping-cart"></span>加入购物车</button></a>
         </div>
     </div>

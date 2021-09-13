@@ -41,7 +41,7 @@ public class OrderItemDAO {
 
             ps.setInt(1, bean.getProduct().getId());
 
-            // 订单项在创建的时候，是没有订单信息的。
+            // 订单项在创建的时候，是没有订单信息的。赋值为 -1 .方便区分购物车中的订单项和已经完成的订单项.
             if(null == bean.getOrder())
                 ps.setInt(2, -1);
             else
@@ -291,7 +291,7 @@ public class OrderItemDAO {
         int total = 0;
         try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement();) {
 
-            String sql = "select sum(number) from OrderItem where pid = " + pid;
+            String sql = "select sum(number) from OrderItem where oid != -1 and pid = " + pid;
 
             ResultSet rs = s.executeQuery(sql);
             while (rs.next()) {

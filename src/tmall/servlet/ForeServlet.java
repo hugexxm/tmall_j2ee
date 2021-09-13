@@ -5,6 +5,7 @@ import org.springframework.web.util.HtmlUtils;
 import tmall.bean.*;
 import tmall.comparator.*;
 import tmall.dao.OrderDAO;
+import tmall.dao.OrderItemDAO;
 import tmall.dao.ProductImageDAO;
 import tmall.util.Page;
 
