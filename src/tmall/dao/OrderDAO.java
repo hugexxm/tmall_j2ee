@@ -22,6 +22,7 @@ public class OrderDAO {
     public static final String waitReview = "waitReview";
     public static final String finish = "finish";
     public static final String delete = "delete";
+    public static final String deleteWithoutPay = "deleteWithoutPay";
 
     public int getTotal(){
         int total = 0;

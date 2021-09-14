@@ -295,7 +295,10 @@ public class OrderItemDAO {
         for(OrderItem oi : ois){
             if(oi.getOrder() != null){
                 Order o = oi.getOrder();
-                if(!o.getStatus().equals(OrderDAO.waitPay)) // equals
+                if(o.getStatus().equals(OrderDAO.waitPay) ||
+                        o.getStatus().equals(OrderDAO.deleteWithoutPay) ) // equals
+                   continue;
+                else
                     total += oi.getNumber();
             }
         }

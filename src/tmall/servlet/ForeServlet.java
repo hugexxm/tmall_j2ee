@@ -349,7 +349,10 @@ public class ForeServlet extends BaseForeServlet {
     public String deleteOrder(HttpServletRequest request, HttpServletResponse response, Page page){
         int oid = Integer.parseInt(request.getParameter("oid"));
         Order o = orderDAO.get(oid);
-        o.setStatus(OrderDAO.delete);
+        if(o.getStatus().equals(OrderDAO.waitPay))
+            o.setStatus(OrderDAO.deleteWithoutPay);
+        else
+            o.setStatus(OrderDAO.delete);
         orderDAO.update(o);
 
         return "%success";

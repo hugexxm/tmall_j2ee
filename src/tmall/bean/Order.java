@@ -47,6 +47,9 @@ public class Order {
           case OrderDAO.delete:
               desc="刪除";
               break;
+          case OrderDAO.deleteWithoutPay:
+              desc="未付款已删除";
+              break;
           default:
               desc="未知";
         }
