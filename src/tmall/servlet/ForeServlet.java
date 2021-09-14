@@ -152,32 +152,39 @@ public class ForeServlet extends BaseForeServlet {
 
         // orderItem 生成订单项
         int oiid = 0;
-        boolean found = false;
-        List<OrderItem> ois = orderItemDAO.listByUser(user.getId()); // 查看是否有该用户的该产品的订单项,有的话就一起算
-        for(OrderItem oi : ois){
-            if(oi.getProduct().getId() == p.getId()){
-                oi.setNumber(oi.getNumber() + num);
-                orderItemDAO.update(oi);
-                found = true;
-                oiid = oi.getId();
-                break;
-            }
-        }
+//        boolean found = false;
+//        List<OrderItem> ois = orderItemDAO.listByUser(user.getId()); // 查看是否有该用户的该产品的订单项,有的话就一起算
+//        for(OrderItem oi : ois){
+//            if(oi.getProduct().getId() == p.getId()){
+//                oi.setNumber(oi.getNumber() + num);
+//                orderItemDAO.update(oi);
+//                found = true;
+//                oiid = oi.getId();
+//                break;
+//            }
+//        }
+//
+//        if(!found){ // 没找到,就新增一个
+//            OrderItem oi = new OrderItem();
+//            oi.setUser(user);
+//            oi.setNumber(num);
+//            oi.setProduct(p);
+//            orderItemDAO.add(oi); // 还有一个oid,后面生成订单的时候会用得到.
+//            oiid = oi.getId();
+//        }
 
-        if(!found){ // 没找到,就新增一个
-            OrderItem oi = new OrderItem();
-            oi.setUser(user);
-            oi.setNumber(num);
-            oi.setProduct(p);
-            orderItemDAO.add(oi); // 还有一个oid,后面生成订单的时候会用得到.
-            oiid = oi.getId();
-        }
+        OrderItem oi = new OrderItem();
+        oi.setUser(user);
+        oi.setNumber(num);
+        oi.setProduct(p);
+        orderItemDAO.add(oi); // 还有一个oid,后面生成订单的时候会用得到.
+        oiid = oi.getId();
 
         return "@forebuy?oiid=" + oiid;
     }
 
     public String buy(HttpServletRequest request, HttpServletResponse response, Page page){
-        String[] oiids = request.getParameterValues("oiid");
+        String[] oiids = request.getParameterValues("oiid"); // 结算页面,会有多个oiid
         List<OrderItem> ois = new ArrayList<>();
         float total = 0;
 
@@ -187,7 +194,7 @@ public class ForeServlet extends BaseForeServlet {
             total += oi.getProduct().getPromotePrice() * oi.getNumber();
             ois.add(oi);
         }
-        request.getSession().setAttribute("ois", ois);
+        request.getSession().setAttribute("ois", ois); // session
         request.setAttribute("total", total);
 
         return "buy.jsp";
@@ -261,7 +268,7 @@ public class ForeServlet extends BaseForeServlet {
     public String createOrder(HttpServletRequest request, HttpServletResponse response, Page page){
         User user = (User) request.getSession().getAttribute("user");
 
-        List<OrderItem> ois = (List<OrderItem>) request.getSession().getAttribute("ois");
+        List<OrderItem> ois = (List<OrderItem>) request.getSession().getAttribute("ois"); // session
         if(ois.isEmpty())
             return "@login.jsp";
 
@@ -287,7 +294,7 @@ public class ForeServlet extends BaseForeServlet {
         orderDAO.add(order);
         float total = 0;
         for(OrderItem oi : ois){
-            oi.setOrder(order);
+            oi.setOrder(order); // 将 订单项和订单 关联起来.
             orderItemDAO.update(oi);
             total = oi.getProduct().getPromotePrice() * oi.getNumber();
         }
@@ -312,7 +319,7 @@ public class ForeServlet extends BaseForeServlet {
 
     public String bought(HttpServletRequest request, HttpServletResponse response, Page page){
         User user = (User) request.getSession().getAttribute("user");
-        List<Order> os = orderDAO.list(user.getId(), OrderDAO.delete);
+        List<Order> os = orderDAO.list(user.getId(), OrderDAO.delete); // 除了delete,都算
 
         orderItemDAO.fill(os);
 

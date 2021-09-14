@@ -235,7 +235,7 @@
             </tr>
             </thead>
             <tbody>
-            <c:forEach items="${ois }" var="oi">
+            <c:forEach items="${ois}" var="oi">
                 <tr oiid="${oi.id}" class="cartProductItemTR">
                     <td>
                         <img selectit="false" oiid="${oi.id}" class="cartProductItemIfSelected" src="img/site/cartNotSelected.png">

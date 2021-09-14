@@ -286,21 +286,34 @@ public class OrderItemDAO {
         return beans;
     }
 
-    // 获取某一种产品的销量，产品销量就是这种产品对应的订单项OrderItem的number字段的总和
+    // 获取某一种产品的销量，产品销量就是这种产品对应的订单项OrderItem的number字段的总和 (应该还有一个限定条件:已付款)
     public int getSaleCount(int pid) {
+
+        List<OrderItem> ois = listByProduct(pid);
         int total = 0;
-        try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement();) {
 
-            String sql = "select sum(number) from OrderItem where oid != -1 and pid = " + pid;
-
-            ResultSet rs = s.executeQuery(sql);
-            while (rs.next()) {
-                total = rs.getInt(1);
+        for(OrderItem oi : ois){
+            if(oi.getOrder() != null){
+                Order o = oi.getOrder();
+                if(!o.getStatus().equals(OrderDAO.waitPay)) // equals
+                    total += oi.getNumber();
             }
-        } catch (SQLException e) {
-
-            e.printStackTrace();
         }
+
+
+//        int total = 0;
+//        try (Connection c = DBUtil.getConnection(); Statement s = c.createStatement();) {
+//
+//            String sql = "select sum(number) from OrderItem where oid != -1 and pid = " + pid;
+//
+//            ResultSet rs = s.executeQuery(sql);
+//            while (rs.next()) {
+//                total = rs.getInt(1);
+//            }
+//        } catch (SQLException e) {
+//
+//            e.printStackTrace();
+//        }
         return total;
     }
 }
