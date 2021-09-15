@@ -31,7 +31,13 @@
                     page,
                     {"oiid":deleteOrderItemid},
                     function(result){
-                        if("success"==result){
+
+                        var jsonResult = JSON.parse(result);
+                        var ifSuccess = jsonResult.ifSuccess;
+                        var cartTotalItemNumber = jsonResult.cartTostalItemNumber;
+                        $(".cartTotal").html(cartTotalItemNumber);
+
+                        if("success"==ifSuccess){
                             $("tr.cartProductItemTR[oiid="+deleteOrderItemid+"]").hide();
                         }
                         else{
@@ -201,7 +207,11 @@
             page,
             {"pid":pid,"number":num},
             function(result){
-                if("success"!=result){
+                var jsonResult = JSON.parse(result);
+                var ifSuccess = jsonResult.ifSuccess;
+                var cartTotalItemNumber = jsonResult.cartTotalItemNumber;
+                $(".cartTotal").html(cartTotalItemNumber);
+                if("success"!=ifSuccess){
                     location.href="login.jsp";
                 }
             }

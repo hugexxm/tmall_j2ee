@@ -8,6 +8,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" isELIgnored="false"%>
 
+<script>
+
+    $(function(){
+        var attr = $(".cartTotal").attr("num");
+        $(".cartTotal").html(attr);
+    });
+</script>
+
+
 <nav class="top ">
     <a href="${contextPath}">
         <span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-home redColor"></span>
@@ -30,7 +39,9 @@
         <a href="forebought">我的订单</a>
         <a href="forecart">
             <span style="color:#C40000;margin:0px" class=" glyphicon glyphicon-shopping-cart redColor"></span>
-            购物车<strong>${cartTotalItemNumber}</strong>件
+            购物车
+            <strong class="cartTotal" num="${cartTotalItemNumber}"></strong>
+            件
         </a>
     </span>
 

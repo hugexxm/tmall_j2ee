@@ -52,8 +52,12 @@
                             addCartpage,
                             {"pid":pid,"num":num},
                             function(result){
-                                if("success"==result){
-                                    location.reload();
+                                var jsonResult = JSON.parse(result);
+                                var ifSuccess = jsonResult.ifSuccess;
+                                var cartTotalItemNumber = jsonResult.cartTotalItemNumber;
+                                if("success"==ifSuccess){
+                                    $(".cartTotal").html(cartTotalItemNumber);
+                                    //location.reload();
                                     // $(".addCartButton").html("已加入购物车");
                                     // $(".addCartButton").attr("disabled","disabled");
                                     // $(".addCartButton").css("background-color","lightgray");

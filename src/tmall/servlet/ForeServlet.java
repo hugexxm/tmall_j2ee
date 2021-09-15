@@ -1,5 +1,6 @@
 package tmall.servlet;
 
+import net.sf.json.JSONObject;
 import org.apache.commons.lang.math.RandomUtils;
 import org.springframework.web.util.HtmlUtils;
 import tmall.bean.*;
@@ -226,7 +227,21 @@ public class ForeServlet extends BaseForeServlet {
             orderItemDAO.add(oi);
         }
 
-        return "%success";
+        int cartTotalItemNumber = 0;
+        if(null != user){
+            for(OrderItem oi : ois){
+                cartTotalItemNumber += oi.getNumber();
+            }
+        }
+
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ifSuccess", "success");
+        jsonObject.put("cartTotalItemNumber", cartTotalItemNumber);
+
+        String strReturn = "%" + jsonObject;
+        return strReturn;
+
+//        return "%success";
     }
 
     public String cart(HttpServletRequest request, HttpServletResponse response, Page page){
@@ -253,7 +268,20 @@ public class ForeServlet extends BaseForeServlet {
             }
         }
 
-        return "%success";
+        int cartTotalItemNumber = 0;
+        if(null != user){
+            for(OrderItem oi : ois){
+                cartTotalItemNumber += oi.getNumber();
+            }
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ifSuccess", "success");
+        jsonObject.put("cartTotalItemNumber", cartTotalItemNumber);
+
+        String strReturn = "%" + jsonObject;
+        return strReturn;
+
+//        return "%success";
     }
 
     public String deleteOrderItem(HttpServletRequest request, HttpServletResponse response, Page page){
@@ -262,7 +290,22 @@ public class ForeServlet extends BaseForeServlet {
             return "%fail";
         int oiid = Integer.parseInt(request.getParameter("oiid"));
         orderItemDAO.delete(oiid);
-        return "%success";
+
+        List<OrderItem> ois = orderItemDAO.listByUser(user.getId());
+        int cartTotalItemNumber = 0;
+        if(null != user){
+            for(OrderItem oi : ois){
+                cartTotalItemNumber += oi.getNumber();
+            }
+        }
+        JSONObject jsonObject = new JSONObject();
+        jsonObject.put("ifSuccess", "success");
+        jsonObject.put("cartTotalItemNumber", cartTotalItemNumber);
+
+        String strReturn = "%" + jsonObject;
+        return strReturn;
+
+//        return "%success";
     }
 
     public String createOrder(HttpServletRequest request, HttpServletResponse response, Page page){
